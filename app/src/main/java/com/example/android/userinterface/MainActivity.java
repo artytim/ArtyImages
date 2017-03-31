@@ -1,13 +1,11 @@
 package com.example.android.userinterface;
 
-import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.io.IOException;
-import java.io.InputStream;
+import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,16 +17,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         imageView = (ImageView) findViewById(R.id.foodImage);
+        Picasso.with(this).load(R.drawable.apple_pie).into(imageView);
     }
 
     public void clickHandler(View view) {
-//        imageView.setImageResource(R.drawable.artichokes);
-        String imageName = "artichokes.jpg";
-        try (InputStream stream = getAssets().open(imageName)) {
-            Drawable d = Drawable.createFromStream(stream, null);
-            imageView.setImageDrawable(d);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        String imageName = "file:///android_asset/artichokes.jpg";
+//        Picasso.with(this).load(imageName).into(imageView);
+        Picasso.with(this).load(imageName).fit().into(imageView);
     }
 }
